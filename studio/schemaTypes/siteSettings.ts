@@ -14,7 +14,12 @@ export default defineType({
     }),
     defineField({
       name: 'logo',
-      title: 'Logo (optional)',
+      title: 'Logo — for light backgrounds (optional)',
+      type: 'image',
+    }),
+    defineField({
+      name: 'logoDark',
+      title: 'Logo — for dark backgrounds, e.g. footer (optional)',
       type: 'image',
     }),
     defineField({

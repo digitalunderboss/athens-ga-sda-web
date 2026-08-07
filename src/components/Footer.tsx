@@ -1,18 +1,26 @@
 import { Link } from 'react-router'
 import type { SiteSettings } from '../lib/types'
+import { urlFor } from '../lib/image'
 
 interface FooterProps {
   siteSettings: SiteSettings | null
 }
 
 function Footer({ siteSettings }: FooterProps) {
-  const siteName = siteSettings?.siteName ?? 'Athens GA SDA Church'
+  const siteName = siteSettings?.siteName ?? 'Athens SDA Church'
   const year = new Date().getFullYear()
 
   return (
     <footer className="bg-primary mt-auto px-4 py-10 text-white sm:px-8">
       <div className="mx-auto flex max-w-5xl flex-col gap-8 sm:flex-row sm:justify-between">
         <div className="max-w-sm">
+          {siteSettings?.logoDark && (
+            <img
+              src={urlFor(siteSettings.logoDark).width(280).url()}
+              alt="Seventh-day Adventist Church"
+              className="mb-3 h-8 w-auto"
+            />
+          )}
           <p className="text-lg font-semibold">{siteName}</p>
           {siteSettings?.footerTagline && (
             <p className="mt-2 text-sm text-white/80">{siteSettings.footerTagline}</p>

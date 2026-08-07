@@ -133,6 +133,40 @@ wrapper (and `pointer-events-auto` on the CTA links / dot buttons inside
 it), it silently swallows clicks meant for the arrows. Do not remove these
 classes when touching `Hero.tsx`.
 
+**Header nav has three explicit width zones, using custom pixel breakpoints
+(960px and 560px), not Tailwind's default named breakpoints**
+Ricardo specified exact cutoffs, which don't line up with Tailwind's default
+scale (`sm`=640, `md`=768, `lg`=1024), so `Menu.tsx` and `MobileQuickNav.tsx`
+use arbitrary-value breakpoints (`min-[960px]:`, `min-[560px]:`) directly
+rather than the named ones:
+- **≥960px**: full desktop `<nav>` shown (`hidden min-[960px]:flex`); burger
+  button and mobile overlay menu hidden (`min-[960px]:hidden`); quick-nav
+  hidden (it's `<560px` only, so already off at this width).
+- **560–959px**: burger button only. Full nav is hidden (`<960px`), and the
+  icon quick-nav is hidden too (`min-[560px]:hidden` — at ≥560px it's off).
+  This zone exists because the full nav doesn't fit here (it crowded the
+  site name / wrapped mid-word at these widths), but Ricardo didn't want the
+  icon strip cluttering tablet-sized screens either — tablets get burger-only.
+- **<560px**: burger button *and* the icon quick-nav both shown.
+
+Do not consolidate these back onto one shared breakpoint (e.g. reusing `lg`
+for both the burger and the quick-nav) — the whole point is that the
+burger's on/off point (960px) and the quick-nav's on/off point (560px) are
+different from each other. If nav link count changes and 960px no longer
+fits the full nav, raise that number — don't change 560px along with it
+unless explicitly asked.
+
+**Mobile quick-nav (icon strip) icon mapping**
+`MobileQuickNav.tsx` is a horizontally-scrollable icon+label row (Heroicons
+outline set), sitting inside the sticky `Header` right below the top
+logo/burger row — modeled on elevationchurch.org's mobile nav. Icons are
+mapped by nav-link **label** via a hardcoded `ICONS_BY_LABEL` record in the
+component, with `Squares2X2Icon` as the fallback for any label not in the
+map. This is intentionally a code-level mapping, not a Sanity schema field —
+do not add an "icon" field to the `navLink` Sanity schema for this; if a new
+nav link label is added in Sanity, just add a matching entry to
+`ICONS_BY_LABEL` in code (it'll fall back gracefully in the meantime).
+
 ## Future-Phase Decisions (recorded now, not yet built)
 
 **Sermon detail pages use dynamic routing via slug**

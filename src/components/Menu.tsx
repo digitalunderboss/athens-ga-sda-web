@@ -14,7 +14,7 @@ function Menu({ navLinks }: MenuProps) {
 
   return (
     <>
-      <nav className="hidden items-center gap-6 md:flex">
+      <nav className="hidden items-center gap-6 min-[960px]:flex">
         {navLinks.map((link) => (
           <RouterNavLink key={link._key} to={link.path} className={linkClasses}>
             {link.label}
@@ -27,7 +27,7 @@ function Menu({ navLinks }: MenuProps) {
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isOpen}
         onClick={() => setIsOpen((open) => !open)}
-        className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+        className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 min-[960px]:hidden"
       >
         <span
           className={`h-0.5 w-6 bg-text transition-transform ${isOpen ? 'translate-y-2 rotate-45' : ''}`}
@@ -39,7 +39,7 @@ function Menu({ navLinks }: MenuProps) {
       </button>
 
       {isOpen && (
-        <nav className="bg-background fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 text-xl md:hidden">
+        <nav className="bg-background fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 text-xl min-[960px]:hidden">
           {navLinks.map((link) => (
             <RouterNavLink
               key={link._key}

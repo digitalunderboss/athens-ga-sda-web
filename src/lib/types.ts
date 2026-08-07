@@ -26,6 +26,9 @@ export interface HomePage {
   worshipHeading?: string
   worshipSubheading?: string
   worshipOptions: WorshipOption[]
+  ministryHeading?: string
+  ministrySubheading?: string
+  ministryOptions: WorshipOption[]
 }
 
 export interface NavLink {
@@ -43,6 +46,7 @@ export interface SocialLink {
 export interface SiteSettings {
   siteName: string
   logo?: SanityImageSource
+  logoDark?: SanityImageSource
   navLinks: NavLink[]
   footerTagline?: string
   contactEmail?: string

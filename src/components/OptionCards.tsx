@@ -2,21 +2,25 @@ import { Link } from 'react-router'
 import type { WorshipOption } from '../lib/types'
 import { urlFor } from '../lib/image'
 
-interface WorshipOptionsProps {
+interface OptionCardsProps {
   heading?: string
   subheading?: string
   options: WorshipOption[]
+  columns?: 2 | 4
 }
 
-function WorshipOptions({ heading, subheading, options }: WorshipOptionsProps) {
+function OptionCards({ heading, subheading, options, columns = 2 }: OptionCardsProps) {
   if (options.length === 0) return null
+
+  const gridClasses =
+    columns === 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'sm:grid-cols-2'
 
   return (
     <section className="mx-auto max-w-5xl px-4 py-16 text-center sm:px-8">
       {heading && <h2 className="text-primary text-2xl font-bold sm:text-3xl">{heading}</h2>}
       {subheading && <p className="text-text mx-auto mt-3 max-w-xl">{subheading}</p>}
 
-      <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div className={`mt-10 grid grid-cols-1 gap-6 ${gridClasses}`}>
         {options.map((option) => (
           <div
             key={option._key}
@@ -24,7 +28,7 @@ function WorshipOptions({ heading, subheading, options }: WorshipOptionsProps) {
           >
             {option.image && (
               <img
-                src={urlFor(option.image).width(800).height(500).url()}
+                src={urlFor(option.image).width(800).url()}
                 alt=""
                 className="h-48 w-full object-cover"
               />
@@ -48,4 +52,4 @@ function WorshipOptions({ heading, subheading, options }: WorshipOptionsProps) {
   )
 }
 
-export default WorshipOptions
+export default OptionCards

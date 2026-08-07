@@ -6,11 +6,15 @@ const homePageQuery = /* groq */ `*[_id == "homePage"][0]{
   worshipHeading,
   worshipSubheading,
   worshipOptions,
+  ministryHeading,
+  ministrySubheading,
+  ministryOptions,
 }`
 
 const siteSettingsQuery = /* groq */ `*[_id == "siteSettings"][0]{
   siteName,
   logo,
+  logoDark,
   navLinks,
   footerTagline,
   contactEmail,

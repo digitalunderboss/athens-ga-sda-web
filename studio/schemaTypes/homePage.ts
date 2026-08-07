@@ -30,6 +30,23 @@ export default defineType({
       type: 'array',
       of: [{ type: 'worshipOption' }],
     }),
+    defineField({
+      name: 'ministryHeading',
+      title: 'Engaging in Ministry Section Heading',
+      type: 'string',
+    }),
+    defineField({
+      name: 'ministrySubheading',
+      title: 'Engaging in Ministry Section Subheading',
+      type: 'text',
+      rows: 2,
+    }),
+    defineField({
+      name: 'ministryOptions',
+      title: 'Ministry Options',
+      type: 'array',
+      of: [{ type: 'worshipOption' }],
+    }),
   ],
   preview: {
     prepare() {
