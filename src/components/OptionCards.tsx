@@ -39,7 +39,7 @@ function OptionCards({ heading, subheading, options, columns = 2 }: OptionCardsP
               {option.ctaLabel && option.ctaLink && (
                 <Link
                   to={option.ctaLink}
-                  className="border-primary text-primary mt-auto inline-block w-fit rounded-full border px-5 py-2 text-sm font-semibold hover:bg-primary hover:text-white"
+                  className="border-primary text-primary mt-auto block w-full rounded-full border px-5 py-2 text-center text-sm font-semibold hover:bg-primary hover:text-white"
                 >
                   {option.ctaLabel}
                 </Link>
