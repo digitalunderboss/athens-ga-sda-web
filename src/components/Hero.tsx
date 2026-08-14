@@ -55,7 +55,7 @@ function Hero({ slides }: HeroProps) {
         </>
       )}
 
-      <div className="pointer-events-none relative z-10 flex h-full flex-col justify-end gap-4 px-4 pb-16 sm:px-8 sm:pb-20">
+      <div className="pointer-events-none relative z-10 flex h-full flex-col justify-end gap-4 px-4 pb-[34px] sm:px-8 sm:pb-[46px]">
         <h1 className="max-w-2xl text-3xl font-bold text-white sm:text-5xl">{slide.heading}</h1>
         {slide.subheading && (
           <p className="max-w-xl text-base text-white/90 sm:text-lg">{slide.subheading}</p>
@@ -79,23 +79,23 @@ function Hero({ slides }: HeroProps) {
             </Link>
           )}
         </div>
-
-        {slides.length > 1 && (
-          <div className="pointer-events-auto mt-4 flex gap-2">
-            {slides.map((s, index) => (
-              <button
-                key={s._key}
-                type="button"
-                aria-label={`Go to slide ${index + 1}`}
-                onClick={() => goTo(index)}
-                className={`h-2 rounded-full transition-all ${
-                  index === activeIndex ? 'bg-accent w-6' : 'w-2 bg-white/60'
-                }`}
-              />
-            ))}
-          </div>
-        )}
       </div>
+
+      {slides.length > 1 && (
+        <div className="pointer-events-auto absolute bottom-[13px] left-4 z-10 flex gap-2 sm:bottom-[19px] sm:left-8">
+          {slides.map((s, index) => (
+            <button
+              key={s._key}
+              type="button"
+              aria-label={`Go to slide ${index + 1}`}
+              onClick={() => goTo(index)}
+              className={`h-2 rounded-full transition-all ${
+                index === activeIndex ? 'bg-accent w-6' : 'w-2 bg-white/60'
+              }`}
+            />
+          ))}
+        </div>
+      )}
     </section>
   )
 }

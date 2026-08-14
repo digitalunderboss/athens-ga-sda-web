@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { NavLink as RouterNavLink } from 'react-router'
 import type { NavLink } from '../lib/types'
+import { isExternalLink } from '../lib/links'
 
 interface MenuProps {
   navLinks: NavLink[]
@@ -15,11 +16,23 @@ function Menu({ navLinks }: MenuProps) {
   return (
     <>
       <nav className="hidden items-center gap-6 min-[960px]:flex">
-        {navLinks.map((link) => (
-          <RouterNavLink key={link._key} to={link.path} className={linkClasses}>
-            {link.label}
-          </RouterNavLink>
-        ))}
+        {navLinks.map((link) =>
+          isExternalLink(link.path) ? (
+            <a
+              key={link._key}
+              href={link.path}
+              target="_blank"
+              rel="noreferrer"
+              className="text-text hover:text-primary"
+            >
+              {link.label}
+            </a>
+          ) : (
+            <RouterNavLink key={link._key} to={link.path} className={linkClasses}>
+              {link.label}
+            </RouterNavLink>
+          ),
+        )}
       </nav>
 
       <button
@@ -40,16 +53,29 @@ function Menu({ navLinks }: MenuProps) {
 
       {isOpen && (
         <nav className="bg-background fixed inset-0 z-40 flex flex-col items-center justify-center gap-8 text-xl min-[960px]:hidden">
-          {navLinks.map((link) => (
-            <RouterNavLink
-              key={link._key}
-              to={link.path}
-              className={linkClasses}
-              onClick={() => setIsOpen(false)}
-            >
-              {link.label}
-            </RouterNavLink>
-          ))}
+          {navLinks.map((link) =>
+            isExternalLink(link.path) ? (
+              <a
+                key={link._key}
+                href={link.path}
+                target="_blank"
+                rel="noreferrer"
+                className="text-text hover:text-primary"
+                onClick={() => setIsOpen(false)}
+              >
+                {link.label}
+              </a>
+            ) : (
+              <RouterNavLink
+                key={link._key}
+                to={link.path}
+                className={linkClasses}
+                onClick={() => setIsOpen(false)}
+              >
+                {link.label}
+              </RouterNavLink>
+            ),
+          )}
         </nav>
       )}
     </>

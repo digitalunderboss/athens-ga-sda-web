@@ -10,6 +10,7 @@ import {
   Squares2X2Icon,
 } from '@heroicons/react/24/outline'
 import type { NavLink } from '../lib/types'
+import { isExternalLink } from '../lib/links'
 
 interface MobileQuickNavProps {
   navLinks: NavLink[]
@@ -35,6 +36,20 @@ function MobileQuickNav({ navLinks }: MobileQuickNavProps) {
     >
       {navLinks.map((link) => {
         const Icon = ICONS_BY_LABEL[link.label] ?? Squares2X2Icon
+        if (isExternalLink(link.path)) {
+          return (
+            <a
+              key={link._key}
+              href={link.path}
+              target="_blank"
+              rel="noreferrer"
+              className="text-text flex shrink-0 flex-col items-center gap-1 text-xs"
+            >
+              <Icon className="h-6 w-6" />
+              <span className="whitespace-nowrap">{link.label}</span>
+            </a>
+          )
+        }
         return (
           <RouterNavLink
             key={link._key}

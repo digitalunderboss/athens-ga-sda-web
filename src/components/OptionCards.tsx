@@ -6,17 +6,21 @@ interface OptionCardsProps {
   heading?: string
   subheading?: string
   options: WorshipOption[]
-  columns?: 2 | 4
+  columns?: 2 | 3 | 4
 }
 
 function OptionCards({ heading, subheading, options, columns = 2 }: OptionCardsProps) {
   if (options.length === 0) return null
 
   const gridClasses =
-    columns === 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'sm:grid-cols-2'
+    columns === 4
+      ? 'sm:grid-cols-2 lg:grid-cols-4'
+      : columns === 3
+        ? 'sm:grid-cols-2 lg:grid-cols-3'
+        : 'sm:grid-cols-2'
 
   return (
-    <section className="mx-auto max-w-5xl px-4 py-16 text-center sm:px-8">
+    <section className="mx-auto max-w-5xl px-4 pt-16 text-center last:pb-16 sm:px-8">
       {heading && <h2 className="text-primary text-2xl font-bold sm:text-3xl">{heading}</h2>}
       {subheading && <p className="text-text mx-auto mt-3 max-w-xl">{subheading}</p>}
 

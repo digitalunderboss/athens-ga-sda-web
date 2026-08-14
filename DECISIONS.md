@@ -167,6 +167,74 @@ do not add an "icon" field to the `navLink` Sanity schema for this; if a new
 nav link label is added in Sanity, just add a matching entry to
 `ICONS_BY_LABEL` in code (it'll fall back gracefully in the meantime).
 
+**Stacked homepage sections use `pt-16` + `last:pb-16`, not `py-16` each**
+`OptionCards` (used for both Worship and Ministry) only applies top padding
+per instance, with bottom padding added via Tailwind's `last:` variant so
+only the actual last section before the Footer gets it. This works because
+`Hero`, and each `OptionCards` section, are direct siblings under `Layout`'s
+`<main>`. Do not go back to a symmetric `py-16` per section — with sections
+stacked directly, that doubles the visual gap between them (bottom padding
+of one + top padding of the next), which is exactly the bug Ricardo caught.
+If a non-`OptionCards` section is ever inserted between them, re-check this
+still resolves to the right element being `:last-child`.
+
+**Nav links can be external URLs — detected by an `isExternalLink()` helper**
+`src/lib/links.ts` exports `isExternalLink(path)`, checking for a
+`http(s)://` prefix. `Menu`, `MobileQuickNav`, and `Footer` all branch on
+this per-link: external links render as plain `<a target="_blank"
+rel="noreferrer">`, internal ones use React Router's `Link`/`NavLink`. Do
+not pass an absolute URL straight into React Router's `Link`/`NavLink` — it
+does not reliably do a real browser navigation for cross-origin URLs. The
+`navLink.path` Sanity field now documents both usages. The Offering nav
+link is the first real example: it points straight to
+`https://adventistgiving.org/donate/ANTFBV` — there is intentionally no
+`/offering` page. Do not build one; if the giving link ever changes, update
+`siteSettings.navLinks[label="Offering"].path` in Sanity, not code.
+
+**"I'm New" is the first real page beyond Home — built from the pastor's
+own outline doc, not improvised copy**
+`imNewPage` is a new Sanity singleton (same pattern as `homePage`), and
+`/im-new` now routes to a real page instead of `ComingSoon`. Content and
+section order come directly from
+`~/Downloads/I'm New - Webpage Outline.docx`, including which sections the
+pastor marked "(banner)" vs "(card)" vs "(dropdown)" — that determined the
+component choice (`TextBanner`/`PlanVisitCta` for banners, `OptionCards`
+for the 5-card discipleship pathway, a new `Faq` accordion for the
+dropdown). Do not rewrite this page's copy without checking the source doc
+— it's the pastor's actual wording, not a placeholder.
+
+**Empty optional fields hide their section, they don't get filler text**
+`sermonSeriesText` is seeded empty (the pastor's doc literally says "Place
+current sermon series here" — a note to fill in later, not real copy).
+`SaturdaySchedule` only renders that block when the field is non-empty.
+Do not invent a fake sermon series name to fill the gap — leave it empty
+until the pastor supplies one in Sanity, and follow this same pattern
+(hide-if-empty over fabricated content) for any other "TBD" pastor notes
+that show up in future page outlines.
+
+**FAQ accordion uses native `<details>/<summary>`, not JS state**
+`Faq.tsx` needs no `useState` — native HTML handles open/closed, keyboard
+access, and screen readers for free. Do not rewrite this with
+`useState`/`onClick` toggle logic unless a real need for custom animation
+or "only one open at a time" behavior comes up.
+
+**`OptionCards` now supports `columns={3}` alongside 2 and 4**
+Added for the 5-card discipleship pathway (3+2 wrap on desktop, single
+column on mobile). Reused rather than building a new card-grid component —
+see the earlier decision on `OptionCards` being the shared card-grid
+component for exactly this reason.
+
+**I'm New hero image reuses the homepage's "You Belong Here" photo asset**
+Rather than sourcing a new stock photo, `imNewPage.heroSlides[0].image`
+references the same already-uploaded Sanity asset
+(`image-4a2420e2f14632fb666c65070d0be23fad08e913-5171x3447-jpg`) that the
+homepage's second hero slide used before it was repurposed for the Sermons
+slide. Thematically it fit "We're Glad You're Here" better than any new
+search result found (repeated attempts kept surfacing corporate-office or
+clergy-vestment photos inappropriate for this SDA church site). Reusing an
+already-uploaded asset like this is fine — no need to re-upload a duplicate
+file when an existing one fits.
+
 ## Future-Phase Decisions (recorded now, not yet built)
 
 **Sermon detail pages use dynamic routing via slug**

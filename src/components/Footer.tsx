@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import type { SiteSettings } from '../lib/types'
 import { urlFor } from '../lib/image'
+import { isExternalLink } from '../lib/links'
 
 interface FooterProps {
   siteSettings: SiteSettings | null
@@ -29,11 +30,23 @@ function Footer({ siteSettings }: FooterProps) {
 
         {siteSettings?.navLinks && siteSettings.navLinks.length > 0 && (
           <nav className="flex flex-col gap-2 text-sm">
-            {siteSettings.navLinks.map((link) => (
-              <Link key={link._key} to={link.path} className="text-white/80 hover:text-accent">
-                {link.label}
-              </Link>
-            ))}
+            {siteSettings.navLinks.map((link) =>
+              isExternalLink(link.path) ? (
+                <a
+                  key={link._key}
+                  href={link.path}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-white/80 hover:text-accent"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link key={link._key} to={link.path} className="text-white/80 hover:text-accent">
+                  {link.label}
+                </Link>
+              ),
+            )}
           </nav>
         )}
 

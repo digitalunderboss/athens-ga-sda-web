@@ -4,6 +4,8 @@ import worshipOption from './worshipOption'
 import siteSettings from './siteSettings'
 import navLink from './navLink'
 import socialLink from './socialLink'
+import imNewPage from './imNewPage'
+import faqItem from './faqItem'
 
 export const schemaTypes = [
   homePage,
@@ -12,4 +14,6 @@ export const schemaTypes = [
   siteSettings,
   navLink,
   socialLink,
+  imNewPage,
+  faqItem,
 ]

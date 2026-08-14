@@ -14,7 +14,8 @@ export default defineType({
     defineField({
       name: 'path',
       title: 'Path',
-      description: 'Internal route path, e.g. /about',
+      description:
+        'Internal route path (e.g. /about), or a full https:// URL to link offsite (opens in a new tab), e.g. for the Offering/giving link.',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),

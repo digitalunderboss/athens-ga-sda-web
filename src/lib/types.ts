@@ -54,3 +54,39 @@ export interface SiteSettings {
   address?: string
   socialLinks: SocialLink[]
 }
+
+export interface FaqItem {
+  _key: string
+  question: string
+  answer: string
+}
+
+export interface ImNewPage {
+  heroSlides: HeroSlide[]
+  expectStatement?: string
+  expectParagraphs: string[]
+  saturdayEyebrow?: string
+  bibleStudyHeading?: string
+  bibleStudyBody?: string
+  worshipHeading?: string
+  worshipIntro?: string
+  worshipBullets: string[]
+  sermonSeriesLabel?: string
+  sermonSeriesText?: string
+  worshipOutro?: string
+  nextStepEyebrow?: string
+  nextStepHeading?: string
+  nextStepParagraphs: string[]
+  pathwayHeading?: string
+  pathwayCards: WorshipOption[]
+  faqHeading?: string
+  faqItems: FaqItem[]
+  finalCtaHeading?: string
+  finalCtaBody?: string
+  churchName?: string
+  address?: string
+  bibleStudyTime?: string
+  worshipServiceTime?: string
+  finalCtaButtonLabel?: string
+  finalCtaButtonLink?: string
+}

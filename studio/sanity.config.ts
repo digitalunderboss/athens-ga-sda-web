@@ -21,6 +21,10 @@ export default defineConfig({
               .id('homePage')
               .child(S.document().schemaType('homePage').documentId('homePage')),
             S.listItem()
+              .title("I'm New Page")
+              .id('imNewPage')
+              .child(S.document().schemaType('imNewPage').documentId('imNewPage')),
+            S.listItem()
               .title('Site Settings')
               .id('siteSettings')
               .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
@@ -31,12 +35,12 @@ export default defineConfig({
 
   schema: {
     types: schemaTypes,
-    // homePage and siteSettings are singletons — hide them from the generic
-    // "create new" menu so editors always land on the one fixed document via
-    // the list above.
+    // homePage, imNewPage, and siteSettings are singletons — hide them from
+    // the generic "create new" menu so editors always land on the one fixed
+    // document via the list above.
     templates: (templates) =>
       templates.filter(
-        (template) => !['homePage', 'siteSettings'].includes(template.schemaType),
+        (template) => !['homePage', 'imNewPage', 'siteSettings'].includes(template.schemaType),
       ),
   },
 })
