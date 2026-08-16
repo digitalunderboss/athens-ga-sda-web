@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
-import { useLocation } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { getImNewPage } from '../lib/content'
 import type { ImNewPage as ImNewPageData } from '../lib/types'
+import { isExternalLink } from '../lib/links'
 import Hero from '../components/Hero'
 import TextBanner from '../components/TextBanner'
 import SaturdaySchedule from '../components/SaturdaySchedule'
@@ -9,6 +10,9 @@ import SectionIntro from '../components/SectionIntro'
 import OptionCards from '../components/OptionCards'
 import Faq from '../components/Faq'
 import PlanVisitCta from '../components/PlanVisitCta'
+
+const CTA_BUTTON_CLASSES =
+  'bg-accent rounded-full px-8 py-3 text-sm font-semibold text-white hover:opacity-90'
 
 function ImNew() {
   const [page, setPage] = useState<ImNewPageData | null>(null)
@@ -46,6 +50,25 @@ function ImNew() {
         sermonSeriesText={page.sermonSeriesText}
         worshipOutro={page.worshipOutro}
       />
+
+      {page.finalCtaButtonLabel && page.finalCtaButtonLink && (
+        <div className="flex justify-center px-4 pt-16 sm:px-8">
+          {isExternalLink(page.finalCtaButtonLink) ? (
+            <a
+              href={page.finalCtaButtonLink}
+              target="_blank"
+              rel="noreferrer"
+              className={CTA_BUTTON_CLASSES}
+            >
+              {page.finalCtaButtonLabel}
+            </a>
+          ) : (
+            <Link to={page.finalCtaButtonLink} className={CTA_BUTTON_CLASSES}>
+              {page.finalCtaButtonLabel}
+            </Link>
+          )}
+        </div>
+      )}
 
       <SectionIntro
         eyebrow={page.nextStepEyebrow}
