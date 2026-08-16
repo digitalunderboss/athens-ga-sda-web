@@ -235,6 +235,38 @@ clergy-vestment photos inappropriate for this SDA church site). Reusing an
 already-uploaded asset like this is fine — no need to re-upload a duplicate
 file when an existing one fits.
 
+**Sermon hero CTA links are computed from a YouTube URL + timestamp field,
+not typed in as a full link**
+`heroSlide` gained two optional fields — `youtubeVideoUrl` and
+`youtubeTimestamp` (MM:SS or H:MM:SS, e.g. `54:50` or `1:26:04`). When
+`youtubeVideoUrl` is set it overrides `primaryCtaLink`/`secondaryCtaLink`
+for that slide: the Secondary CTA links to the bare video, and the Primary
+CTA links to the same video with `&t=<seconds>s` appended, computed by
+`src/lib/youtube.ts` (`withYoutubeTimestamp`). This means the pastor only
+ever edits a timestamp like the sermon start time in his own notation
+(`54:50`), not a raw seconds count or a hand-built query string. Reuse this
+same field pair (not a hand-typed link) for any future YouTube CTA that
+needs to jump to a specific point in a video — e.g. the future Sermons page.
+
+**External CTA links (YouTube, Offering, etc.) render a plain `<a
+target="_blank">`, not a React Router `Link`**
+`Hero` and `OptionCards` now branch on `isExternalLink()` the same way
+`Menu`/`Footer`/`MobileQuickNav` already did — external URLs get a real
+anchor tag that opens in a new tab; internal paths still use `<Link>` for
+client-side routing. Apply this same branch to any new component that
+renders a Sanity-supplied CTA link, since any of those fields can end up
+holding either an internal path or a full external URL.
+
+**"We'd Love to Meet You" (I'm New page) uses the page background color,
+not a green band**
+`PlanVisitCta` originally used `bg-primary` (matching `TextBanner`'s
+banner styling) but the pastor wanted it to blend into the page instead.
+Because it's now the same background as the section above it (`Faq`), its
+top padding does the job `last:pb-16` used to do — `Faq` was changed back
+to `pt-16` only (no bottom padding) so the gap between the last FAQ item
+and this section isn't doubled. Don't reintroduce `bg-primary` here without
+also reverting `Faq`'s padding, or the doubled-gap bug will come back.
+
 ## Future-Phase Decisions (recorded now, not yet built)
 
 **Sermon detail pages use dynamic routing via slug**

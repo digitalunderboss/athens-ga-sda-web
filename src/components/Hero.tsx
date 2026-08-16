@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import type { HeroSlide } from '../lib/types'
 import { urlFor } from '../lib/image'
+import { isExternalLink } from '../lib/links'
+import { withYoutubeTimestamp } from '../lib/youtube'
 
 interface HeroProps {
   slides: HeroSlide[]
@@ -24,6 +26,11 @@ function Hero({ slides }: HeroProps) {
 
   const slide = slides[activeIndex]
   const goTo = (index: number) => setActiveIndex((index + slides.length) % slides.length)
+
+  const primaryCtaLink = slide.youtubeVideoUrl
+    ? withYoutubeTimestamp(slide.youtubeVideoUrl, slide.youtubeTimestamp)
+    : slide.primaryCtaLink
+  const secondaryCtaLink = slide.youtubeVideoUrl ?? slide.secondaryCtaLink
 
   return (
     <section className="relative h-[80svh] min-h-[420px] w-full overflow-hidden">
@@ -62,22 +69,44 @@ function Hero({ slides }: HeroProps) {
         )}
 
         <div className="pointer-events-auto mt-2 flex flex-wrap gap-3">
-          {slide.primaryCtaLabel && slide.primaryCtaLink && (
-            <Link
-              to={slide.primaryCtaLink}
-              className="bg-accent rounded-full px-6 py-3 text-sm font-semibold text-white hover:opacity-90"
-            >
-              {slide.primaryCtaLabel}
-            </Link>
-          )}
-          {slide.secondaryCtaLabel && slide.secondaryCtaLink && (
-            <Link
-              to={slide.secondaryCtaLink}
-              className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-text hover:bg-white/90"
-            >
-              {slide.secondaryCtaLabel}
-            </Link>
-          )}
+          {slide.primaryCtaLabel &&
+            primaryCtaLink &&
+            (isExternalLink(primaryCtaLink) ? (
+              <a
+                href={primaryCtaLink}
+                target="_blank"
+                rel="noreferrer"
+                className="bg-accent rounded-full px-6 py-3 text-sm font-semibold text-white hover:opacity-90"
+              >
+                {slide.primaryCtaLabel}
+              </a>
+            ) : (
+              <Link
+                to={primaryCtaLink}
+                className="bg-accent rounded-full px-6 py-3 text-sm font-semibold text-white hover:opacity-90"
+              >
+                {slide.primaryCtaLabel}
+              </Link>
+            ))}
+          {slide.secondaryCtaLabel &&
+            secondaryCtaLink &&
+            (isExternalLink(secondaryCtaLink) ? (
+              <a
+                href={secondaryCtaLink}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-text hover:bg-white/90"
+              >
+                {slide.secondaryCtaLabel}
+              </a>
+            ) : (
+              <Link
+                to={secondaryCtaLink}
+                className="rounded-full bg-white px-6 py-3 text-sm font-semibold text-text hover:bg-white/90"
+              >
+                {slide.secondaryCtaLabel}
+              </Link>
+            ))}
         </div>
       </div>
 

@@ -13,7 +13,7 @@ function Faq({ heading, items }: FaqProps) {
   if (items.length === 0) return null
 
   return (
-    <section className="mx-auto max-w-3xl px-4 py-16 sm:px-8">
+    <section className="mx-auto max-w-3xl px-4 pt-16 sm:px-8">
       {heading && (
         <h2 className="text-primary text-center text-2xl font-bold sm:text-3xl">{heading}</h2>
       )}

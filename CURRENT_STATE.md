@@ -1,20 +1,19 @@
 # Current State
 
-_Last updated: 2026-08-12_
+_Last updated: 2026-08-15_
 
 ## Last Session Completed
-- Built the full **"I'm New" page** (`/im-new`) from the pastor's own outline doc (`I'm New - Webpage Outline.docx`), replacing its `ComingSoon` placeholder — new `imNewPage` Sanity singleton, all real pastor copy seeded (not placeholder text)
-- New components: `TextBanner` (colored banner sections), `SaturdaySchedule`, `SectionIntro`, `Faq` (native `<details>` accordion, no JS state), `PlanVisitCta` (final banner w/ address, service times, button)
-- Extended `OptionCards` to support `columns={3}` (used for the 5-card discipleship pathway: Learn/Grow/Belong/Live the Mission/Connect with Us)
-- Real church address (429 Epps Bridge Parkway, Athens, GA 30606) and service times (Sabbath School 10 AM, Worship 11 AM, Saturdays) now live on this page, sourced directly from the pastor's doc
-- Verified full page on desktop and mobile: hero, banner, schedule, cards, working accordion, final CTA all correct
-- Also fixed, earlier in this session: doubled section spacing between homepage Worship/Ministry sections (now `pt-16` + `last:pb-16` pattern instead of `py-16` per section), external-link support for nav items (`isExternalLink()` helper — Offering nav item now points straight to `https://adventistgiving.org/donate/ANTFBV`, no `/offering` page), and Hero content spacing/dot-indicator layout per Ricardo's iterative feedback
+- Fixed "I'm New" page: "We'd Love to Meet You" section now uses the regular page background instead of a green band (see DECISIONS.md for the padding fix that came with it, avoiding a doubled gap after the FAQ section)
+- Sermon Hero slide CTAs now link to real YouTube content: "Watch Sermon" jumps to the sermon's start timestamp, "Watch Full Experience" links to the video from the top. Sanity's `heroSlide` schema gained `youtubeVideoUrl` + `youtubeTimestamp` (pastor types `54:50` or `1:26:04`, app computes the `&t=`  seconds param via `src/lib/youtube.ts`)
+- "Watch Live" button (Online Worship card, homepage) now opens `https://www.youtube.com/@athensgasda/streams` in a new tab
+- `Hero` and `OptionCards` now branch on `isExternalLink()` for CTA buttons (external → real `<a target="_blank">`, internal → React Router `Link`), matching the pattern already used in nav components
+- Deployed updated schema to the pastor's Studio (`athens-sda.sanity.studio`) — along the way, fixed a pre-existing react/react-dom patch-version mismatch in `/studio` (`npm install react@19.2.8 react-dom@19.2.8`) that was blocking the Studio build
+- Pushed all "I'm New" page work from the prior session (commit `ee6bd3f`) plus this session's changes
 
 ## In Progress
-- **Not yet pushed** — this session's work (I'm New page, spacing fixes, external link support) is local + in Sanity only
+- Nothing in progress — all requested changes verified in-browser (desktop + mobile) and pushed/deployed
 
 ## Next Up
-- Push this session's work
 - Pastor/Ricardo review of the "I'm New" page, especially: the empty "Current Sermon Series" field (intentionally blank, hidden until filled in), and the reused hero photo (originally the homepage's "You Belong Here" image)
 - Continue building out remaining `ComingSoon` routes (About, Discipleship, Sermons, Group Bible Study) as outline docs become available
 - Consider polish items: loading states while Sanity content fetches, image alt text

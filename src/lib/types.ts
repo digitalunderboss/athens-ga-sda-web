@@ -10,6 +10,8 @@ export interface HeroSlide {
   primaryCtaLink?: string
   secondaryCtaLabel?: string
   secondaryCtaLink?: string
+  youtubeVideoUrl?: string
+  youtubeTimestamp?: string
 }
 
 export interface WorshipOption {

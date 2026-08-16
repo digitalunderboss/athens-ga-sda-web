@@ -1,6 +1,7 @@
 import { Link } from 'react-router'
 import type { WorshipOption } from '../lib/types'
 import { urlFor } from '../lib/image'
+import { isExternalLink } from '../lib/links'
 
 interface OptionCardsProps {
   heading?: string
@@ -41,12 +42,23 @@ function OptionCards({ heading, subheading, options, columns = 2 }: OptionCardsP
               <h3 className="text-primary text-xl font-semibold">{option.label}</h3>
               {option.description && <p className="text-text text-sm">{option.description}</p>}
               {option.ctaLabel && option.ctaLink && (
-                <Link
-                  to={option.ctaLink}
-                  className="border-primary text-primary mt-auto block w-full rounded-full border px-5 py-2 text-center text-sm font-semibold hover:bg-primary hover:text-white"
-                >
-                  {option.ctaLabel}
-                </Link>
+                isExternalLink(option.ctaLink) ? (
+                  <a
+                    href={option.ctaLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="border-primary text-primary mt-auto block w-full rounded-full border px-5 py-2 text-center text-sm font-semibold hover:bg-primary hover:text-white"
+                  >
+                    {option.ctaLabel}
+                  </a>
+                ) : (
+                  <Link
+                    to={option.ctaLink}
+                    className="border-primary text-primary mt-auto block w-full rounded-full border px-5 py-2 text-center text-sm font-semibold hover:bg-primary hover:text-white"
+                  >
+                    {option.ctaLabel}
+                  </Link>
+                )
               )}
             </div>
           </div>
