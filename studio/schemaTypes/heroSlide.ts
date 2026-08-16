@@ -13,6 +13,14 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'mobileImage',
+      title: 'Mobile Background Image (optional)',
+      description:
+        'Used only on narrow (mobile) screens, in place of a cropped version of the Background Image above. Leave blank to just show a portrait crop of the Background Image on mobile.',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
       name: 'videoUrl',
       title: 'Background Video URL (optional)',
       description:

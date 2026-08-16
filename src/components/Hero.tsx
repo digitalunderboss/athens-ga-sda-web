@@ -34,11 +34,20 @@ function Hero({ slides }: HeroProps) {
 
   return (
     <section className="relative h-[80svh] min-h-[420px] w-full overflow-hidden">
-      <img
-        src={urlFor(slide.image).width(1920).url()}
-        alt=""
-        className="absolute inset-0 h-full w-full object-cover object-top"
-      />
+      <picture className="absolute inset-0 block h-full w-full">
+        <source
+          media="(max-width: 639px)"
+          srcSet={urlFor(slide.mobileImage ?? slide.image)
+            .width(800)
+            .height(1200)
+            .url()}
+        />
+        <img
+          src={urlFor(slide.image).width(1920).url()}
+          alt=""
+          className="h-full w-full object-cover object-top"
+        />
+      </picture>
       <div className="absolute inset-0 bg-black/40" />
 
       {slides.length > 1 && (

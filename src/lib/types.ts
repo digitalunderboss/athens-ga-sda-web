@@ -3,6 +3,7 @@ import type { SanityImageSource } from '@sanity/image-url'
 export interface HeroSlide {
   _key: string
   image: SanityImageSource
+  mobileImage?: SanityImageSource
   videoUrl?: string
   heading: string
   subheading?: string
