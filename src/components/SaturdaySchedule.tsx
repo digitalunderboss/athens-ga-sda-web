@@ -22,7 +22,7 @@ function SaturdaySchedule({
   worshipOutro,
 }: SaturdayScheduleProps) {
   return (
-    <section className="mx-auto max-w-5xl px-4 pt-16 last:pb-16 sm:px-8">
+    <section id="saturday-schedule" className="mx-auto max-w-5xl px-4 pt-16 last:pb-16 sm:px-8">
       {eyebrow && (
         <p className="text-accent text-center text-sm font-semibold tracking-wide uppercase">
           {eyebrow}

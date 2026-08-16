@@ -71,13 +71,13 @@ function Hero({ slides }: HeroProps) {
         </>
       )}
 
-      <div className="pointer-events-none relative z-10 flex h-full flex-col justify-end gap-4 px-4 pb-[34px] sm:px-8 sm:pb-[46px]">
+      <div className="pointer-events-none relative z-10 flex h-full flex-col justify-end gap-2 px-4 pb-[34px] sm:px-8 sm:pb-[46px]">
         <h1 className="max-w-2xl text-3xl font-bold text-white sm:text-5xl">{slide.heading}</h1>
         {slide.subheading && (
           <p className="max-w-xl text-base text-white/90 sm:text-lg">{slide.subheading}</p>
         )}
 
-        <div className="pointer-events-auto mt-2 flex flex-wrap gap-3">
+        <div className="pointer-events-auto flex flex-wrap gap-3">
           {slide.primaryCtaLabel &&
             primaryCtaLink &&
             (isExternalLink(primaryCtaLink) ? (

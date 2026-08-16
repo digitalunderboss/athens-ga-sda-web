@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router'
 import { getImNewPage } from '../lib/content'
 import type { ImNewPage as ImNewPageData } from '../lib/types'
 import Hero from '../components/Hero'
@@ -11,10 +12,20 @@ import PlanVisitCta from '../components/PlanVisitCta'
 
 function ImNew() {
   const [page, setPage] = useState<ImNewPageData | null>(null)
+  const { hash } = useLocation()
 
   useEffect(() => {
     getImNewPage().then(setPage)
   }, [])
+
+  useEffect(() => {
+    if (!page || !hash) return
+    const target = document.getElementById(hash.slice(1))
+    if (!target) return
+    const headerHeight = document.querySelector('header')?.getBoundingClientRect().height ?? 0
+    const top = target.getBoundingClientRect().top + window.scrollY - headerHeight - 16
+    window.scrollTo({ top, behavior: 'smooth' })
+  }, [page, hash])
 
   if (!page) return null
 
