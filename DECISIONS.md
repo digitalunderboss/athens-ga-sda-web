@@ -267,6 +267,53 @@ to `pt-16` only (no bottom padding) so the gap between the last FAQ item
 and this section isn't doubled. Don't reintroduce `bg-primary` here without
 also reverting `Faq`'s padding, or the doubled-gap bug will come back.
 
+**About page is the second real page built directly from a pastor outline
+doc — same rule as "I'm New"**
+`aboutPage` is a new Sanity singleton (same singleton pattern as `homePage`
+and `imNewPage`), and `/about` now routes to a real page instead of
+`ComingSoon`. Every heading, paragraph, stat, and card comes verbatim from
+`About Page Layout.docx` (Hero → Local/Pastor → Conference → Worldwide →
+Stats → Global Family → Beliefs CTA) — do not paraphrase or "improve" this
+copy without checking the source doc, same as the I'm New page rule.
+
+**Pastor's family photo is used as-is for the Pastor Profile section, not
+cropped to just Pastor Scott**
+The outline doc's text says "Large photograph of Pastor Scott," but the
+photo Ricardo actually supplied (and explicitly asked to be used) is a
+family portrait — Scott, his wife Pashal, and their two kids — which
+pairs naturally with the bio paragraph that mentions the family. Don't
+crop this down to a solo headshot; the family photo is the intended
+asset.
+
+**Local CTA button ("Plan Your Visit") links to `/im-new`, not something
+copied from the outline doc**
+The outline never specified a href for this button — only the label. Since
+"Plan Your Visit" is the same label already used on the I'm New page's own
+final CTA, `/im-new` is the natural target (it's literally the page whose
+job is to help a first-time visitor plan a visit). If a dedicated
+"plan your visit" flow is ever built elsewhere, update
+`aboutPage.localCtaButtonLink` in Sanity — don't assume the doc specified
+this link, because it didn't.
+
+**Local → Conference → Worldwide scroll-spotlight is sticky-with-highlight
+on desktop, static-inline on mobile — not two different layouts**
+`ScrollSpotlightImage` (the pastor's local/regional/worldwide infographic)
+sits in a CSS grid alongside the Local/Conference/Worldwide sections:
+`grid-cols-1 lg:grid-cols-[280px_1fr]`. On `lg:` screens the image column
+gets `lg:sticky lg:top-24`, so it stays pinned while the three sections
+scroll past beside it; an `IntersectionObserver` in `About.tsx` (watching
+one ref per section, `rootMargin: '-40% 0px -40% 0px'`) tracks which
+section is centered in the viewport and moves a glowing ring overlay to
+that section's icon on the image (position values are hardcoded
+percentages measured against this specific graphic — they will need
+re-measuring if the pastor ever supplies a differently-laid-out graphic).
+Below `lg:`, the same grid just collapses to one column, so the image
+renders once, inline, at its normal (non-sticky) position — there's
+intentionally no separate mobile-only image treatment or reduced/simplified
+animation to maintain; the single grid does both jobs. Don't try to make
+the sticky/spotlight effect happen on mobile — there's no second column
+for text to scroll past beside a pinned image, so it would just overlap.
+
 ## Future-Phase Decisions (recorded now, not yet built)
 
 **Sermon detail pages use dynamic routing via slug**

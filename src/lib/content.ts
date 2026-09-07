@@ -1,5 +1,5 @@
 import { sanityClient } from './sanity'
-import type { HomePage, SiteSettings, ImNewPage } from './types'
+import type { HomePage, SiteSettings, ImNewPage, AboutPage } from './types'
 
 const homePageQuery = /* groq */ `*[_id == "homePage"][0]{
   heroSlides,
@@ -53,6 +53,50 @@ const imNewPageQuery = /* groq */ `*[_id == "imNewPage"][0]{
   finalCtaButtonLink,
 }`
 
+const aboutPageQuery = /* groq */ `*[_id == "aboutPage"][0]{
+  heroHeadline,
+  heroSubheadline,
+  heroTagline,
+  scrollVisual,
+  localIntroHeading,
+  localIntroBody,
+  pastorHeading,
+  pastorName,
+  pastorPhoto,
+  pastorBio,
+  pullQuote,
+  localCtaHeading,
+  localCtaBody,
+  localCtaButtonLabel,
+  localCtaButtonLink,
+  conferenceHeadline,
+  conferenceIntro,
+  conferenceChurchCount,
+  conferenceMemberCount,
+  missionHeading,
+  missionBody,
+  leadershipHeading,
+  leaders,
+  conferenceCtaLabel,
+  conferenceCtaLink,
+  worldwideTransition,
+  worldwideHeadline,
+  worldwideIntro,
+  angels,
+  connectingStatement,
+  connectingBody,
+  statsHeading,
+  stats,
+  globalFamilyHeading,
+  globalFamilyParagraphs,
+  beliefsHeading,
+  beliefsBody,
+  beliefsCardHeading,
+  beliefsCardBody,
+  beliefsButtonLabel,
+  beliefsButtonLink,
+}`
+
 export function getHomePage() {
   return sanityClient.fetch<HomePage>(homePageQuery)
 }
@@ -63,4 +107,8 @@ export function getSiteSettings() {
 
 export function getImNewPage() {
   return sanityClient.fetch<ImNewPage>(imNewPageQuery)
+}
+
+export function getAboutPage() {
+  return sanityClient.fetch<AboutPage>(aboutPageQuery)
 }

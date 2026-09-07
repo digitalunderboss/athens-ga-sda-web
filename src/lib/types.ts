@@ -93,3 +93,73 @@ export interface ImNewPage {
   finalCtaButtonLabel?: string
   finalCtaButtonLink?: string
 }
+
+export interface StatItem {
+  _key: string
+  number: string
+  label: string
+}
+
+export interface LeaderCard {
+  _key: string
+  name: string
+  title: string
+}
+
+export interface AngelCard {
+  _key: string
+  number: string
+  heading: string
+  quote?: string
+  description?: string
+}
+
+export interface AboutPage {
+  heroHeadline?: string
+  heroSubheadline?: string
+  heroTagline?: string
+  scrollVisual?: SanityImageSource
+
+  localIntroHeading?: string
+  localIntroBody?: string
+  pastorHeading?: string
+  pastorName?: string
+  pastorPhoto?: SanityImageSource
+  pastorBio: string[]
+  pullQuote?: string
+  localCtaHeading?: string
+  localCtaBody?: string
+  localCtaButtonLabel?: string
+  localCtaButtonLink?: string
+
+  conferenceHeadline?: string
+  conferenceIntro?: string
+  conferenceChurchCount?: string
+  conferenceMemberCount?: string
+  missionHeading?: string
+  missionBody?: string
+  leadershipHeading?: string
+  leaders: LeaderCard[]
+  conferenceCtaLabel?: string
+  conferenceCtaLink?: string
+
+  worldwideTransition?: string
+  worldwideHeadline?: string
+  worldwideIntro?: string
+  angels: AngelCard[]
+  connectingStatement?: string
+  connectingBody?: string
+
+  statsHeading?: string
+  stats: StatItem[]
+
+  globalFamilyHeading?: string
+  globalFamilyParagraphs: string[]
+
+  beliefsHeading?: string
+  beliefsBody?: string
+  beliefsCardHeading?: string
+  beliefsCardBody?: string
+  beliefsButtonLabel?: string
+  beliefsButtonLink?: string
+}
