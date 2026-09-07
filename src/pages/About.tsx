@@ -49,7 +49,7 @@ function About() {
 
   const ctaClasses = 'bg-accent rounded-full px-8 py-3 text-sm font-semibold text-white hover:opacity-90'
   const outlineCtaClasses =
-    'border-primary text-primary self-start rounded-full border px-6 py-3 text-sm font-semibold hover:bg-primary hover:text-white'
+    'border-primary text-primary self-center rounded-full border px-6 py-3 text-sm font-semibold hover:bg-primary hover:text-white'
 
   return (
     <>
@@ -138,11 +138,13 @@ function About() {
                 <div className="border-secondary flex flex-col items-center gap-2 rounded-2xl border p-6 text-center sm:flex-row sm:justify-center sm:gap-6">
                   <span className="text-primary font-semibold">Athens, GA</span>
                   <span aria-hidden="true" className="text-accent">
-                    →
+                    <span className="sm:hidden">↓</span>
+                    <span className="hidden sm:inline">→</span>
                   </span>
                   <span className="text-primary font-semibold">Georgia-Cumberland Conference</span>
                   <span aria-hidden="true" className="text-accent">
-                    →
+                    <span className="sm:hidden">↓</span>
+                    <span className="hidden sm:inline">→</span>
                   </span>
                   <span className="text-primary font-semibold">
                     {[page.conferenceChurchCount, page.conferenceMemberCount]
@@ -164,7 +166,7 @@ function About() {
                       {page.leadershipHeading}
                     </h3>
                   )}
-                  <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                  <div className="mt-4 grid grid-cols-2 items-start gap-4 sm:grid-cols-4">
                     {page.leaders.map((leader) => (
                       <div
                         key={leader._key}
@@ -265,29 +267,29 @@ function About() {
         </div>
       </section>
 
-      <section className="bg-primary mt-16 px-4 py-16 text-center text-white sm:px-8">
+      <section className="px-4 py-16 text-center sm:px-8">
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-4">
           {page.beliefsHeading && (
-            <h2 className="text-3xl font-bold sm:text-4xl">{page.beliefsHeading}</h2>
+            <h2 className="text-primary text-3xl font-bold sm:text-4xl">{page.beliefsHeading}</h2>
           )}
-          {page.beliefsBody && <p className="text-white/90">{page.beliefsBody}</p>}
+          {page.beliefsBody && <p className="text-text">{page.beliefsBody}</p>}
           {(page.beliefsCardHeading || page.beliefsCardBody) && (
-            <div className="mt-4 rounded-2xl bg-white/10 p-6">
+            <div className="bg-secondary/30 mt-4 rounded-2xl p-6 sm:p-8">
               {page.beliefsCardHeading && (
-                <p className="text-xl font-semibold">{page.beliefsCardHeading}</p>
+                <h3 className="text-primary text-xl font-bold">{page.beliefsCardHeading}</h3>
               )}
-              {page.beliefsCardBody && <p className="mt-2 text-white/90">{page.beliefsCardBody}</p>}
+              {page.beliefsCardBody && <p className="text-text mt-2">{page.beliefsCardBody}</p>}
+              {page.beliefsButtonLabel && page.beliefsButtonLink && (
+                <a
+                  href={page.beliefsButtonLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={`${ctaClasses} mt-4 inline-block`}
+                >
+                  {page.beliefsButtonLabel}
+                </a>
+              )}
             </div>
-          )}
-          {page.beliefsButtonLabel && page.beliefsButtonLink && (
-            <a
-              href={page.beliefsButtonLink}
-              target="_blank"
-              rel="noreferrer"
-              className={`${ctaClasses} mt-4`}
-            >
-              {page.beliefsButtonLabel}
-            </a>
           )}
         </div>
       </section>
