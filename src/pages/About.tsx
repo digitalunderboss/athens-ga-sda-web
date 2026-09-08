@@ -65,8 +65,8 @@ function About() {
         )}
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 pb-16 sm:px-8">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[280px_1fr] lg:gap-16">
+      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-8">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[360px_1fr] lg:gap-16">
           <div className="lg:sticky lg:top-24 lg:self-start">
             <ScrollSpotlightImage image={page.scrollVisual} activeStage={activeStage} />
           </div>

@@ -18,7 +18,7 @@ function ScrollSpotlightImage({ image, activeStage }: ScrollSpotlightImageProps)
   const position = STAGE_POSITIONS[activeStage]
 
   return (
-    <div className="relative mx-auto w-full max-w-[280px]">
+    <div className="relative mx-auto w-full max-w-[360px]">
       <img
         src={urlFor(image).width(600).url()}
         alt="Athens SDA Church, part of the Georgia-Cumberland Conference and the worldwide Seventh-day Adventist Church"
