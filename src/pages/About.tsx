@@ -55,7 +55,9 @@ function About() {
     <>
       <section className="mx-auto max-w-3xl px-4 pt-16 pb-8 text-center sm:px-8">
         {page.heroHeadline && (
-          <h1 className="text-primary text-3xl font-bold sm:text-5xl">{page.heroHeadline}</h1>
+          <h1 className="text-primary text-3xl font-bold whitespace-pre-line sm:text-5xl">
+            {page.heroHeadline}
+          </h1>
         )}
         {page.heroSubheadline && <p className="text-text mt-4">{page.heroSubheadline}</p>}
         {page.heroTagline && (
@@ -80,10 +82,10 @@ function About() {
               )}
               {page.localIntroBody && <p className="text-text">{page.localIntroBody}</p>}
 
-              <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:items-start">
+              <div className="flex flex-col gap-8">
                 {page.pastorPhoto && (
                   <img
-                    src={urlFor(page.pastorPhoto).width(800).url()}
+                    src={urlFor(page.pastorPhoto).width(1400).url()}
                     alt={page.pastorName ?? ''}
                     className="w-full rounded-2xl object-cover"
                   />
@@ -187,13 +189,20 @@ function About() {
                       {page.leadershipHeading}
                     </h3>
                   )}
-                  <div className="mt-4 grid grid-cols-2 items-start gap-4 sm:grid-cols-4">
+                  <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
                     {page.leaders.map((leader) => (
                       <div
                         key={leader._key}
-                        className="border-secondary rounded-xl border p-4 text-center"
+                        className="border-secondary flex flex-col items-center justify-center rounded-xl border p-4 text-center"
                       >
-                        <p className="text-primary font-semibold">{leader.name}</p>
+                        {leader.photo && (
+                          <img
+                            src={urlFor(leader.photo).width(160).height(160).url()}
+                            alt={leader.name}
+                            className="h-20 w-20 rounded-full object-cover"
+                          />
+                        )}
+                        <p className="text-primary mt-3 font-semibold">{leader.name}</p>
                         <p className="text-text text-sm">{leader.title}</p>
                       </div>
                     ))}

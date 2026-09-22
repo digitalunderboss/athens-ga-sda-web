@@ -6,6 +6,12 @@ export default defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'photo',
+      title: 'Photo',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
       name: 'name',
       title: 'Name',
       type: 'string',
@@ -20,6 +26,6 @@ export default defineType({
     }),
   ],
   preview: {
-    select: { title: 'name', subtitle: 'title' },
+    select: { title: 'name', subtitle: 'title', media: 'photo' },
   },
 })

@@ -102,6 +102,7 @@ export interface StatItem {
 
 export interface LeaderCard {
   _key: string
+  photo?: SanityImageSource
   name: string
   title: string
 }
