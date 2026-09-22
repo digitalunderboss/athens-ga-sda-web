@@ -116,12 +116,33 @@ function About() {
                   {page.localCtaHeading && (
                     <h3 className="text-primary text-xl font-bold">{page.localCtaHeading}</h3>
                   )}
-                  {page.localCtaBody && <p className="text-text mt-2">{page.localCtaBody}</p>}
-                  {page.localCtaButtonLabel && page.localCtaButtonLink && (
-                    <Link to={page.localCtaButtonLink} className={`${ctaClasses} mt-4 inline-block`}>
-                      {page.localCtaButtonLabel}
-                    </Link>
+                  {page.localCtaBody && (
+                    <p className="text-text mt-2 whitespace-pre-line">{page.localCtaBody}</p>
                   )}
+                  {page.localCtaButtonLabel &&
+                    (page.localCtaButtonLink ? (
+                      isExternalLink(page.localCtaButtonLink) ? (
+                        <a
+                          href={page.localCtaButtonLink}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={`${ctaClasses} mt-4 inline-block`}
+                        >
+                          {page.localCtaButtonLabel}
+                        </a>
+                      ) : (
+                        <Link
+                          to={page.localCtaButtonLink}
+                          className={`${ctaClasses} mt-4 inline-block`}
+                        >
+                          {page.localCtaButtonLabel}
+                        </Link>
+                      )
+                    ) : (
+                      <span className={`${ctaClasses} mt-4 inline-block cursor-default`}>
+                        {page.localCtaButtonLabel}
+                      </span>
+                    ))}
                 </div>
               )}
             </div>
