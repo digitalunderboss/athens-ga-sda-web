@@ -6,6 +6,7 @@ import type { AboutPage as AboutPageData } from '../lib/types'
 import { urlFor } from '../lib/image'
 import { isExternalLink } from '../lib/links'
 import ScrollSpotlightImage from '../components/ScrollSpotlightImage'
+import MobileStageBar from '../components/MobileStageBar'
 
 function About() {
   const [page, setPage] = useState<AboutPageData | null>(null)
@@ -68,6 +69,8 @@ function About() {
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-8">
+        <MobileStageBar activeStage={activeStage} />
+
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[360px_1fr] lg:gap-16">
           <div className="lg:sticky lg:top-24 lg:self-start">
             <ScrollSpotlightImage image={page.scrollVisual} activeStage={activeStage} />
