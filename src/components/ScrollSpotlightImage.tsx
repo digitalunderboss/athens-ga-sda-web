@@ -7,9 +7,9 @@ interface ScrollSpotlightImageProps {
 }
 
 const STAGE_POSITIONS = [
-  { top: '30.97%', left: '26.68%' }, // local church pin
-  { top: '49.4%', left: '26.95%' }, // conference icon
-  { top: '73.70%', left: '26.91%' }, // worldwide globe
+  { top: '13.91%', left: '26.68%' }, // local church pin
+  { top: '38.11%', left: '26.95%' }, // conference icon
+  { top: '70.01%', left: '26.91%' }, // worldwide globe
 ]
 
 function ScrollSpotlightImage({ image, activeStage }: ScrollSpotlightImageProps) {

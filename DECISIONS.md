@@ -285,34 +285,49 @@ pairs naturally with the bio paragraph that mentions the family. Don't
 crop this down to a solo headshot; the family photo is the intended
 asset.
 
-**Local CTA button ("Plan Your Visit") links to `/im-new`, not something
-copied from the outline doc**
-The outline never specified a href for this button — only the label. Since
-"Plan Your Visit" is the same label already used on the I'm New page's own
-final CTA, `/im-new` is the natural target (it's literally the page whose
-job is to help a first-time visitor plan a visit). If a dedicated
-"plan your visit" flow is ever built elsewhere, update
-`aboutPage.localCtaButtonLink` in Sanity — don't assume the doc specified
-this link, because it didn't.
+**The About page's Local CTA is "Let's Meet!" / "Meet with the Pastor" and
+links to a Church Center form, not an internal page**
+The outline doc never specified a link, and the button was first a "Plan
+Your Visit" link to `/im-new`. It was reworked into a "Let's Meet!" card
+whose button (`aboutPage.localCtaButtonLink`) opens the pastor's Church
+Center form in a new tab. The button renders as an inert `<span>` when no
+link is set, so it can't dead-end. Change the link in Sanity, not code.
 
-**Local → Conference → Worldwide scroll-spotlight is sticky-with-highlight
-on desktop, static-inline on mobile — not two different layouts**
-`ScrollSpotlightImage` (the pastor's local/regional/worldwide infographic)
-sits in a CSS grid alongside the Local/Conference/Worldwide sections:
-`grid-cols-1 lg:grid-cols-[280px_1fr]`. On `lg:` screens the image column
-gets `lg:sticky lg:top-24`, so it stays pinned while the three sections
-scroll past beside it; an `IntersectionObserver` in `About.tsx` (watching
-one ref per section, `rootMargin: '-40% 0px -40% 0px'`) tracks which
-section is centered in the viewport and moves a glowing ring overlay to
-that section's icon on the image (position values are hardcoded
-percentages measured against this specific graphic — they will need
-re-measuring if the pastor ever supplies a differently-laid-out graphic).
-Below `lg:`, the same grid just collapses to one column, so the image
-renders once, inline, at its normal (non-sticky) position — there's
-intentionally no separate mobile-only image treatment or reduced/simplified
-animation to maintain; the single grid does both jobs. Don't try to make
-the sticky/spotlight effect happen on mobile — there's no second column
-for text to scroll past beside a pinned image, so it would just overlap.
+**The I'm New page's "Plan Your Visit" buttons (both) open an external
+Church Center form**
+Both buttons read the same field (`imNewPage.finalCtaButtonLink`), so one
+value controls both. `PlanVisitCta` now handles external `https://` links
+(new tab) like the other link-bearing components, via `isExternalLink()`.
+
+**The home hero's first CTA is "Keep Me Updated" → external Mailchimp
+signup; there is no `/connect` page**
+It was "Get Connected" → `/connect`, a route that never existed (it fell
+through to `ComingSoon`). It now links to `https://eepurl.com/dfeQEj` in a
+new tab. The hero link fields in Studio accept either an internal path or a
+full `https://` link.
+
+**Local → Conference → Worldwide scroll-spotlight: sticky-with-halo on
+desktop, moved above the intro text on smaller screens, with a sticky
+progress bar**
+`ScrollSpotlightImage` (the pastor's cropped infographic) is rendered
+twice and CSS toggles which one shows. At `lg:` and up it is the sticky
+left column (`lg:grid-cols-[360px_1fr]`, `lg:sticky lg:top-24`) beside the
+three sections, with a pulsing halo that moves to the active stage's icon.
+Below `lg:` it sits directly under the "A Local Church. A Regional Family.
+A Worldwide Movement." headline, above the intro paragraph (both copies use
+the same Sanity image URL, so it is fetched once). An `IntersectionObserver`
+in `About.tsx` (`rootMargin: '-40% 0px -40% 0px'`) sets the active stage.
+Halo positions are hardcoded percentages measured against the current
+864x1387 graphic (hand-tuned by eye) — re-measure if the graphic changes.
+
+Smaller screens also get `MobileStageBar`: a sticky bar under the site
+header with a three-dot progress line. The fill is continuous and
+scroll-driven (0 at the Local section, 50% at Conference, 100% at
+Worldwide, measured against a line at 60% of the viewport height so it
+agrees with the observer's stage label). It is a direct child of `<main>`,
+not nested in the section grid, so it stays pinned through the Worldwide
+section and everything after it until the footer. Don't nest it back inside
+the grid section — sticky stops when its parent ends.
 
 ## Future-Phase Decisions (recorded now, not yet built)
 

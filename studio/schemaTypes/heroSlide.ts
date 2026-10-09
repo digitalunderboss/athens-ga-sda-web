@@ -47,7 +47,7 @@ export default defineType({
     defineField({
       name: 'primaryCtaLink',
       title: 'Primary CTA Link',
-      description: 'Internal route path, e.g. /connect',
+      description: 'Internal path (e.g. /about) or full https:// link, which opens in a new tab',
       type: 'string',
     }),
     defineField({
@@ -58,7 +58,7 @@ export default defineType({
     defineField({
       name: 'secondaryCtaLink',
       title: 'Secondary CTA Link',
-      description: 'Internal route path, e.g. /about',
+      description: 'Internal path (e.g. /about) or full https:// link, which opens in a new tab',
       type: 'string',
     }),
     defineField({

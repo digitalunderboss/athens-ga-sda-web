@@ -60,6 +60,9 @@ function About() {
             {page.heroHeadline}
           </h1>
         )}
+        <div className="mt-8 mb-4 lg:hidden">
+          <ScrollSpotlightImage image={page.scrollVisual} activeStage={activeStage} />
+        </div>
         {page.heroSubheadline && <p className="text-text mt-4">{page.heroSubheadline}</p>}
         {page.heroTagline && (
           <p className="text-accent mt-6 text-sm font-semibold tracking-wide uppercase">
@@ -68,15 +71,20 @@ function About() {
         )}
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-8">
-        <MobileStageBar activeStage={activeStage} />
+      <MobileStageBar
+        activeStage={activeStage}
+        localRef={localRef}
+        conferenceRef={conferenceRef}
+        worldwideRef={worldwideRef}
+      />
 
+      <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-8">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[360px_1fr] lg:gap-16">
-          <div className="lg:sticky lg:top-24 lg:self-start">
+          <div className="hidden lg:sticky lg:top-24 lg:block lg:self-start">
             <ScrollSpotlightImage image={page.scrollVisual} activeStage={activeStage} />
           </div>
 
-          <div className="flex flex-col gap-20">
+          <div className="flex flex-col gap-20 pt-6 lg:pt-0">
             <div ref={localRef} className="flex flex-col gap-10">
               {page.localIntroHeading && (
                 <h2 className="text-primary text-2xl font-bold sm:text-3xl">

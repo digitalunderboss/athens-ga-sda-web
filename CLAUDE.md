@@ -44,8 +44,9 @@ stays central; member resources are always just one click away.
 
 - **Hero — Carousel**: media = worship video / recent sermon. Copy = "Welcome
   to Athens GA SDA Church" / "Come Experience Christ's Rest while Sharing the
-  Gospel." Two CTAs: "Get Connected" (→ ministries & worship landing page) and
-  "Learn More" (→ About page).
+  Gospel." Two CTAs: "Keep Me Updated" (→ external Mailchimp signup,
+  `https://eepurl.com/dfeQEj`, opens in a new tab; there is no `/connect`
+  page) and "Learn More" (→ About page).
 - **Worship section**: "Find the right experience for you — no matter where
   you are, online or in person, join in experiencing Christ's Rest." Two
   options: "Physical Worship" and "Online Worship".

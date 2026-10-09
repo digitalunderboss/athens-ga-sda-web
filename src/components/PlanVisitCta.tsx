@@ -1,4 +1,8 @@
 import { Link } from 'react-router'
+import { isExternalLink } from '../lib/links'
+
+const BUTTON_CLASSES =
+  'bg-accent mt-4 rounded-full px-8 py-3 text-sm font-semibold text-white hover:opacity-90'
 
 interface PlanVisitCtaProps {
   heading?: string
@@ -39,14 +43,22 @@ function PlanVisitCta({
           </div>
         )}
 
-        {buttonLabel && buttonLink && (
-          <Link
-            to={buttonLink}
-            className="bg-accent mt-4 rounded-full px-8 py-3 text-sm font-semibold text-white hover:opacity-90"
-          >
-            {buttonLabel}
-          </Link>
-        )}
+        {buttonLabel &&
+          buttonLink &&
+          (isExternalLink(buttonLink) ? (
+            <a
+              href={buttonLink}
+              target="_blank"
+              rel="noreferrer"
+              className={BUTTON_CLASSES}
+            >
+              {buttonLabel}
+            </a>
+          ) : (
+            <Link to={buttonLink} className={BUTTON_CLASSES}>
+              {buttonLabel}
+            </Link>
+          ))}
       </div>
     </section>
   )
